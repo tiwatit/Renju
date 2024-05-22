@@ -31,7 +31,6 @@ def check_five(board, row, col):
   return any(check(board, row, col, color) == 5 for check in [check_horizontal, check_vertical, check_diagonal])
 
 def check_winner(board):
-  """Checks the board for a winner."""
   for row in range(BOARD_SIZE):
     for col in range(BOARD_SIZE):
       if check_five(board, row, col):
@@ -40,8 +39,7 @@ def check_winner(board):
 
 def read_board(file):
   count = int(file.readline())
-  if not (1 <= count <= 11):
-    raise ValueError("Number of test cases is too high")
+
 
   boards = []
   for _ in range(count):
