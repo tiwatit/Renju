@@ -39,7 +39,9 @@ def check_winner(board):
 
 def read_board(file):
   count = int(file.readline())
-
+  """Checks the input data."""
+  if not (1 <= count <= 11):
+    raise ValueError("Number of test cases is too high")
 
   boards = []
   for _ in range(count):
