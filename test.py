@@ -1,36 +1,36 @@
 BOARD_SIZE = 19
 EMPTY_CELL = 0
 
-def check_line(board, row, col, drow, dcol, color):
+def check_line(board, row, col, drow, dcol, player):
     count = 1
     for i in range(1, 5):
         next_row = row + i * drow
         next_col = col + i * dcol
-        if board[next_row][next_col] == color:
+        if 0 <= next_row < BOARD_SIZE and 0 <= next_col < BOARD_SIZE and board[next_row][next_col] == player:
             count += 1
         else:
             break
     return count
 
-def check_horizontal(board, row, col, color):
-    return check_line(board, row, col, 0, 1, color)
+def check_horizontal(board, row, col, player):
+    return check_line(board, row, col, 0, 1, player)
 
-def check_vertical(board, row, col, color):
-    return check_line(board, row, col, 1, 0, color)
+def check_vertical(board, row, col, player):
+    return check_line(board, row, col, 1, 0, player)
 
-def check_diagonal(board, row, col, color):
-    return max(check_line(board, row, col, 1, 1, color),
-               check_line(board, row, col, 1, -1, color))
+def check_diagonal(board, row, col, player):
+    return max(check_line(board, row, col, 1, 1, player),
+               check_line(board, row, col, 1, -1, player))
 
 def check_five(board, row, col):
-    color = board[row][col]
-    if color == EMPTY_CELL:
+    player = board[row][col]
+    if player == EMPTY_CELL:
         return False
-    if check_horizontal(board, row, col, color) >= 5:
+    if check_horizontal(board, row, col, player) >= 5:
         return True
-    if check_vertical(board, row, col, color) >= 5:
+    if check_vertical(board, row, col, player) >= 5:
         return True
-    if check_diagonal(board, row, col, color) >= 5:
+    if check_diagonal(board, row, col, player) >= 5:
         return True
     return False
 
