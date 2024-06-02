@@ -1,6 +1,6 @@
 BOARD_SIZE = 19
 EMPTY_CELL = 0
-
+WIN_NUMBER = 5
 def check_line(board, row, col, drow, dcol, player):
     count = 1
     for i in range(1, 5):
@@ -22,22 +22,18 @@ def check_diagonal(board, row, col, player):
     return max(check_line(board, row, col, 1, 1, player),
                check_line(board, row, col, 1, -1, player))
 
-def check_five(board, row, col):
+def check_win_condition(board, row, col):
     player = board[row][col]
     if player == EMPTY_CELL:
         return False
-    if check_horizontal(board, row, col, player) >= 5:
-        return True
-    if check_vertical(board, row, col, player) >= 5:
-        return True
-    if check_diagonal(board, row, col, player) >= 5:
-        return True
-    return False
+    return (check_horizontal(board, row, col, player) >= WIN_NUMBER or 
+            check_vertical(board, row, col, player) >= WIN_NUMBER or 
+            check_diagonal(board, row, col, player) >= WIN_NUMBER)
 
 def check_winner(board):
     for row in range(BOARD_SIZE):
         for col in range(BOARD_SIZE):
-            if check_five(board, row, col):
+            if check_win_condition(board, row, col):
                 return (1 if board[row][col] == 1 else 2), (row, col)
     return 0, None
 
